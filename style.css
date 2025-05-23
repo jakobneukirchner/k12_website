@@ -7,10 +7,10 @@
     --text-color: #fff; /* Weiße Textfarbe für den Haupttitel */
     --dark-overlay: rgba(0, 0, 0, 0.3); /* Leicht dunkler Überzug */
 
-    /* Farben für das Absperrband: Rot und Weiß */
+    /* Farben für das Absperrband: Rot, Weiß und Schwarz für den Text */
     --banner-red: #E74C3C; /* Kräftiges Rot */
     --banner-white: #FFFFFF; /* Reines Weiß */
-    --banner-text-color: #333; /* Dunkler Text für das Banner */
+    --banner-text-color: #000; /* Textfarbe: Schwarz! */
 }
 
 body {
@@ -115,13 +115,14 @@ h1 {
     transform: translateX(-50%) rotate(-7deg); /* Horizontal zentrieren und leicht rotieren */
     z-index: 100; /* Ganz oben, über allem anderen */
     padding: 15px 40px; /* Deutlich mehr Padding, um das Banner größer zu machen */
-    color: var(--banner-text-color); /* Textfarbe: dunkel (schwarz) */
+    color: var(--banner-text-color); /* **Textfarbe: Schwarz!** */
     font-size: 1.5em; /* Größere Schrift für bessere Lesbarkeit */
     font-weight: 700; /* Kanit Bold */
     text-transform: uppercase;
     border-radius: 5px;
     box-shadow: 0 5px 20px rgba(0, 0, 0, 0.4); /* Kräftigerer Schatten */
     white-space: nowrap; /* Verhindert Zeilenumbruch */
+    text-shadow: 1px 1px 2px rgba(255, 255, 255, 0.8); /* Leichter weißer Schatten für bessere Lesbarkeit auf Rot */
 
     /* Absperrband-Effekt in Rot-Weiß */
     background: repeating-linear-gradient(
@@ -132,21 +133,6 @@ h1 {
         var(--banner-white) 50px /* Breite des weißen Streifens (insgesamt 50px pro Musterwiederholung) */
     );
     border: 3px solid var(--banner-red); /* Dickerer roter Rand */
-
-    /* Stellt sicher, dass der Text immer auf dem weißen Hintergrund lesbar ist */
-    /* Hier nutzen wir einen Trick: Wir legen den Text auf den Hintergrund des gesamten Banners,
-       indem wir ihn auf das Hintergrundbild des Banners anwenden. */
-    background-clip: text; /* Nur der Text hat den Hintergrund */
-    -webkit-background-clip: text; /* Für Safari */
-    -webkit-text-fill-color: transparent; /* Textfüllung transparent, damit Hintergrund durchscheint */
-    /* Dies wird den Text auch rot-weiß gestreift machen, was cool aussehen könnte.
-       Wenn du einen EINFARBIGEN Text (z.B. schwarz) auf dem gestreiften Banner willst,
-       müssten wir eine andere Methode anwenden (z.B. zwei Elemente für Banner und Text).
-       Für jetzt behalten wir den Text auf dem weißen Streifen sichtbar, indem wir
-       die Füllfarbe des Textes direkt setzen, falls background-clip nicht funktioniert. */
-    color: var(--banner-text-color); /* Fallback und primäre Textfarbe */
-    text-shadow: 1px 1px 3px rgba(255, 255, 255, 0.5); /* Leichter Schatten, falls auf Rot */
-
 
     animation: bannerPopIn 1s forwards ease-out 2s; /* Animation, startet noch später */
     opacity: 0; /* Start-Opacity für Animation */
