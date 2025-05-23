@@ -1,144 +1,188 @@
 /* Allgemeine Stile */
 :root {
-    --primary-color: #007bff; /* Ein helles Blau für Links und Buttons */
-    --secondary-color: #6c757d; /* Ein Grauton */
-    --text-color: #333;
-    --background-color: #f4f4f4;
-    --alt-background-color: #ffffff;
-    --header-footer-background: #222;
-    --header-footer-text: #fff;
-    --border-radius: 5px;
+    --primary-color: #007bff; /* Ein helles Blau */
+    --secondary-color: #0056b3; /* Ein dunkleres Blau */
+    --background-gradient-start: #007bff; /* Startfarbe des Hintergrundverlaufs */
+    --background-gradient-end: #00c6ff;   /* Endfarbe des Hintergrundverlaufs */
+    --text-color: #fff; /* Weiße Textfarbe */
+    --dark-overlay: rgba(0, 0, 0, 0.3); /* Leicht dunkler Überzug */
+
+    /* Farben für das Absperrband */
+    --banner-yellow: #FFD700; /* Goldgelb */
+    --banner-black: #333; /* Dunkles Grau/Schwarz */
 }
 
 body {
-    /* Kanit Font hinzugefügt */
-    font-family: 'Kanit', sans-serif;
-    line-height: 1.6;
+    font-family: 'Kanit', sans-serif; /* Kanit Font */
     margin: 0;
     padding: 0;
-    background-color: var(--background-color);
+    /* Hintergrund mit sanftem Farbverlauf */
+    background: linear-gradient(135deg, var(--background-gradient-start) 0%, var(--background-gradient-end) 100%);
+    display: flex; /* Für Zentrierung des Containers */
+    justify-content: center; /* Zentriert horizontal */
+    align-items: center; /* Zentriert vertikal */
+    min-height: 100vh; /* Sorgt dafür, dass der Body die volle Höhe des Viewports einnimmt */
+    overflow: hidden; /* Verhindert Scrollbalken */
+    color: var(--text-color); /* Standard-Textfarbe */
+    position: relative; /* Für den Overlay-Effekt und das Banner */
+}
+
+/* Optionaler Overlay für mehr Tiefe */
+body::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: var(--dark-overlay);
+    z-index: 1; /* Stellt sicher, dass der Overlay über dem Hintergrund ist, aber unter den Inhalten */
+}
+
+.main-container {
+    position: relative; /* Wichtig für z-index */
+    z-index: 2; /* Stellt sicher, dass der Inhalt über dem Overlay ist */
+    display: flex;
+    flex-direction: column; /* Elemente untereinander anordnen */
+    justify-content: center; /* Vertikal zentrieren */
+    align-items: center; /* Horizontal zentrieren */
+    width: 90%; /* Etwas mehr Breite auf großen Bildschirmen */
+    max-width: 800px; /* Maximale Breite */
+    padding: 40px 20px;
+    background-color: rgba(255, 255, 255, 0.1); /* Leicht transparenter weißer Hintergrund */
+    border-radius: 20px; /* Abgerundete Ecken */
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3); /* Sanfter Schatten für Tiefe */
+    backdrop-filter: blur(5px); /* Weichzeichner-Effekt auf dem Hintergrund */
+    -webkit-backdrop-filter: blur(5px); /* Für Safari */
+    text-align: center;
+    transform: translateY(0); /* Startposition für Animation */
+    opacity: 0; /* Start-Opacity für Animation */
+    animation: fadeInSlideUp 1.5s forwards ease-out; /* Animation beim Laden */
+}
+
+@keyframes fadeInSlideUp {
+    from {
+        opacity: 0;
+        transform: translateY(50px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.logo {
+    height: 200px; /* Größe des Logos */
+    margin-bottom: 40px; /* Abstand zwischen Logo und Text */
+    object-fit: contain;
+    transition: transform 0.3s ease-in-out; /* Übergang für Hover-Effekt */
+}
+
+.logo:hover {
+    transform: scale(1.05) rotate(2deg); /* Leichter Zoom und Rotation beim Hover */
+}
+
+h1 {
     color: var(--text-color);
-}
-
-.container {
-    width: 80%;
-    margin: auto;
-    overflow: hidden;
-    padding: 20px 0;
-}
-
-h1, h2, h3 {
-    color: var(--primary-color);
-    margin-bottom: 15px;
-}
-
-a {
-    color: var(--primary-color);
-    text-decoration: none;
-}
-
-a:hover {
-    text-decoration: underline;
-}
-
-.button {
-    display: inline-block;
-    background: var(--primary-color);
-    color: var(--header-footer-text);
-    padding: 10px 20px;
-    border-radius: var(--border-radius);
-    text-decoration: none;
-    transition: background 0.3s ease;
-}
-
-.button:hover {
-    background: #0056b3; /* Dunklerer Blauton */
-    text-decoration: none;
-}
-
-.alt-background {
-    background-color: var(--alt-background-color);
-}
-
-/* Header */
-header {
-    background: var(--header-footer-background);
-    color: var(--header-footer-text);
-    padding: 1rem 0;
-    border-bottom: 3px solid var(--primary-color);
-    display: flex;
-    align-items: center;
-    justify-content: center; /* Zentriert den Inhalt */
-    flex-wrap: wrap; /* Erlaubt Umbruch bei kleineren Bildschirmen */
-    min-height: 100vh; /* Nimmt die volle Höhe des Viewports ein */
-    text-align: center; /* Zentriert den Text im Header */
-}
-
-header .container {
-    display: flex;
-    flex-direction: column; /* Stapelt Logo und H1 vertikal */
-    align-items: center;
-    justify-content: center;
-    height: 100%; /* Stellt sicher, dass der Container die volle Höhe des Headers nutzt */
-}
-
-header .logo {
-    height: 150px; /* Deutlich größer für die erste Ansicht */
-    margin-bottom: 20px; /* Abstand unter dem Logo */
-}
-
-header h1 {
-    color: var(--header-footer-text);
     margin: 0;
-    font-size: 3.5em; /* Größer für die erste Ansicht */
+    font-size: 5em; /* Größerer Titel */
+    letter-spacing: 3px; /* Etwas mehr Abstand zwischen den Buchstaben */
+    text-transform: uppercase; /* Alles Großbuchstaben */
+    text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.4); /* Leichter Schatten für den Text */
+    opacity: 0; /* Start-Opacity für Animation */
+    transform: scale(0.9); /* Start-Skalierung für Animation */
+    animation: popIn 1s forwards ease-out 1s; /* Animation startet etwas später */
 }
 
-header nav ul {
-    margin: 0;
-    padding: 0;
-    list-style: none;
-    display: flex;
+@keyframes popIn {
+    from {
+        opacity: 0;
+        transform: scale(0.9);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
 }
 
-header nav ul li {
-    margin-left: 20px;
+/* --- Website im Bau Banner Stile --- */
+.construction-banner {
+    position: fixed; /* Fixiert am Viewport */
+    bottom: 20px; /* 20px vom unteren Rand */
+    left: 50%; /* Start bei 50% von links */
+    transform: translateX(-50%) rotate(-5deg); /* Horizontal zentrieren und leicht rotieren */
+    z-index: 100; /* Ganz oben, über allem anderen */
+    padding: 10px 25px;
+    color: var(--banner-black);
+    font-size: 1.2em;
+    font-weight: 700; /* Kanit Bold */
+    text-transform: uppercase;
+    border-radius: 5px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+    white-space: nowrap; /* Verhindert Zeilenumbruch */
+
+    /* Absperrband-Effekt */
+    background: repeating-linear-gradient(
+        -45deg, /* Diagonale Streifen */
+        var(--banner-yellow),
+        var(--banner-yellow) 15px, /* Breite des gelben Streifens */
+        var(--banner-black) 15px,
+        var(--banner-black) 30px /* Breite des schwarzen Streifens */
+    );
+    border: 2px solid var(--banner-black); /* Rand für Definition */
+
+    animation: bannerPopIn 1s forwards ease-out 2s; /* Animation, startet noch später */
+    opacity: 0; /* Start-Opacity für Animation */
 }
 
-header nav a {
-    color: var(--header-footer-text);
-    text-decoration: none;
-    font-weight: bold;
-    transition: color 0.3s ease;
+@keyframes bannerPopIn {
+    from {
+        opacity: 0;
+        transform: translateX(-50%) rotate(-10deg) scale(0.8);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(-50%) rotate(-5deg) scale(1);
+    }
 }
 
-header nav a:hover {
-    color: var(--primary-color);
-    text-decoration: none;
-}
 
-/* Alle anderen Sektionen sind standardmäßig ausgeblendet (inline style im HTML) */
-
-/* Responsive Design */
+/* Responsive Anpassungen */
 @media (max-width: 768px) {
-    .container {
-        width: 90%;
+    .logo {
+        height: 150px;
+        margin-bottom: 30px;
     }
-
-    header .logo {
-        height: 100px;
+    h1 {
+        font-size: 3.5em;
+        letter-spacing: 2px;
     }
-
-    header h1 {
-        font-size: 2.5em;
+    .main-container {
+        padding: 30px 15px;
+        border-radius: 15px;
+    }
+    .construction-banner {
+        font-size: 1em;
+        padding: 8px 20px;
     }
 }
 
 @media (max-width: 480px) {
-    header .logo {
-        height: 80px;
+    .logo {
+        height: 100px;
+        margin-bottom: 20px;
     }
-
-    header h1 {
-        font-size: 2em;
+    h1 {
+        font-size: 2.5em;
+        letter-spacing: 1px;
+    }
+    .main-container {
+        padding: 20px 10px;
+        border-radius: 10px;
+    }
+    .construction-banner {
+        font-size: 0.8em;
+        padding: 6px 15px;
+        bottom: 10px; /* Etwas höher auf kleinen Bildschirmen */
     }
 }
