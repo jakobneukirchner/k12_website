@@ -56,24 +56,26 @@ body::before {
     backdrop-filter: blur(5px); /* Weichzeichner-Effekt auf dem Hintergrund */
     -webkit-backdrop-filter: blur(5px); /* Für Safari */
     text-align: center;
-    transform: translateY(0); /* Startposition für Animation */
+
+    /* ANIMATION GEÄNDERT: Sanftes Vergrößern und Hineingleiten */
     opacity: 0; /* Start-Opacity für Animation */
-    animation: fadeInSlideUp 1.5s forwards ease-out; /* Animation beim Laden */
+    transform: translateY(50px) scale(0.9); /* Startposition und Skalierung für Animation */
+    animation: fadeInScaleSlideUp 1.5s forwards ease-out; /* Neue Animation beim Laden */
 }
 
-@keyframes fadeInSlideUp {
+/* NEUE KEYFRAMES FÜR DAS GESAMTE AUFPLOPPEN UND VERGRÖSSERN */
+@keyframes fadeInScaleSlideUp {
     from {
         opacity: 0;
-        transform: translateY(50px);
+        transform: translateY(100px) scale(0.7); /* Start etwas weiter unten und kleiner */
     }
     to {
         opacity: 1;
-        transform: translateY(0);
+        transform: translateY(0) scale(1); /* Endet an der Normalposition und -größe */
     }
 }
 
 .logo {
-    /* Größe des Logos wie eine normale Website */
     height: 80px;
     margin-bottom: 30px;
     object-fit: contain;
@@ -91,21 +93,23 @@ h1 {
     letter-spacing: 3px;
     text-transform: uppercase;
     text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.4);
-    opacity: 0;
+    /* Die individuelle popIn Animation für H1 ist nicht mehr nötig,
+       da der gesamte Container animiert wird. Wenn du einen verzögerten Effekt
+       für den Titel haben möchtest, lass diese Animation aktiviert und erhöhe delay. */
+    /* opacity: 0;
     transform: scale(0.9);
-    animation: popIn 1s forwards ease-out 1s;
+    animation: popIn 1s forwards ease-out 1s; */
 }
 
-@keyframes popIn {
-    from {
-        opacity: 0;
-        transform: scale(0.9);
-    }
-    to {
-        opacity: 1;
-        transform: scale(1);
-    }
+/* Der Stripe Button selbst hat oft Standard-Styles, aber du kannst ihn hier anpassen */
+stripe-buy-button {
+    margin-top: 30px; /* Abstand über dem Button */
+    /* Weitere Anpassungen für den Button, falls gewünscht */
+    /* display: block; /* Stellt sicher, dass er die volle Breite einnimmt, wenn gewünscht */
+    /* max-width: 250px; /* Oder eine feste Breite */
+    /* ... andere CSS-Eigenschaften */
 }
+
 
 /* --- Website im Bau Banner Stile --- */
 .construction-banner {
@@ -115,15 +119,14 @@ h1 {
     transform: translateX(-50%) rotate(-7deg); /* Horizontal zentrieren und leicht rotieren */
     z-index: 100; /* Ganz oben, über allem anderen */
     padding: 15px 40px; /* Deutlich mehr Padding, um das Banner größer zu machen */
-    /* **Keine Textfarbe hier direkt! Wir stylen den Text im span.** */
-    font-size: 1.5em; /* Grundschriftgröße für das Banner */
+    font-size: 1.5em; /* Größere Schrift für bessere Lesbarkeit */
     font-weight: 700; /* Kanit Bold */
     text-transform: uppercase;
     border-radius: 5px;
     box-shadow: 0 5px 20px rgba(0, 0, 0, 0.4); /* Kräftigerer Schatten */
     white-space: nowrap; /* Verhindert Zeilenumbruch */
 
-    /* Absperrband-Effekt in Rot-Weiß (Hintergrund des Banners) */
+    /* Absperrband-Effekt in Rot-Weiß */
     background: repeating-linear-gradient(
         -45deg, /* Diagonale Streifen */
         var(--banner-red),
@@ -139,7 +142,7 @@ h1 {
 
 /* Der Text selbst im Banner */
 .construction-banner .banner-text-content {
-    color: var(--banner-text-color); /* **Textfarbe ist Schwarz!** */
+    color: var(--banner-text-color); /* Textfarbe ist Schwarz! */
     /* WICHTIG: Leichter Schatten, der auf jedem Hintergrund gut sichtbar ist */
     text-shadow: 1px 1px 3px rgba(255, 255, 255, 0.8), /* Weißer Schatten für roten Hintergrund */
                  -1px -1px 3px rgba(0, 0, 0, 0.3); /* Schwarzer Schatten für weißen Hintergrund */
