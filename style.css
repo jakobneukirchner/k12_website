@@ -115,16 +115,15 @@ h1 {
     transform: translateX(-50%) rotate(-7deg); /* Horizontal zentrieren und leicht rotieren */
     z-index: 100; /* Ganz oben, über allem anderen */
     padding: 15px 40px; /* Deutlich mehr Padding, um das Banner größer zu machen */
-    color: var(--banner-text-color); /* **Textfarbe: Schwarz!** */
-    font-size: 1.5em; /* Größere Schrift für bessere Lesbarkeit */
+    /* **Keine Textfarbe hier direkt! Wir stylen den Text im span.** */
+    font-size: 1.5em; /* Grundschriftgröße für das Banner */
     font-weight: 700; /* Kanit Bold */
     text-transform: uppercase;
     border-radius: 5px;
     box-shadow: 0 5px 20px rgba(0, 0, 0, 0.4); /* Kräftigerer Schatten */
     white-space: nowrap; /* Verhindert Zeilenumbruch */
-    text-shadow: 1px 1px 2px rgba(255, 255, 255, 0.8); /* Leichter weißer Schatten für bessere Lesbarkeit auf Rot */
 
-    /* Absperrband-Effekt in Rot-Weiß */
+    /* Absperrband-Effekt in Rot-Weiß (Hintergrund des Banners) */
     background: repeating-linear-gradient(
         -45deg, /* Diagonale Streifen */
         var(--banner-red),
@@ -137,6 +136,15 @@ h1 {
     animation: bannerPopIn 1s forwards ease-out 2s; /* Animation, startet noch später */
     opacity: 0; /* Start-Opacity für Animation */
 }
+
+/* Der Text selbst im Banner */
+.construction-banner .banner-text-content {
+    color: var(--banner-text-color); /* **Textfarbe ist Schwarz!** */
+    /* WICHTIG: Leichter Schatten, der auf jedem Hintergrund gut sichtbar ist */
+    text-shadow: 1px 1px 3px rgba(255, 255, 255, 0.8), /* Weißer Schatten für roten Hintergrund */
+                 -1px -1px 3px rgba(0, 0, 0, 0.3); /* Schwarzer Schatten für weißen Hintergrund */
+}
+
 
 @keyframes bannerPopIn {
     from {
