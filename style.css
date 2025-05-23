@@ -7,9 +7,9 @@
     --text-color: #fff; /* Weiße Textfarbe */
     --dark-overlay: rgba(0, 0, 0, 0.3); /* Leicht dunkler Überzug */
 
-    /* Farben für das Absperrband */
-    --banner-yellow: #FFD700; /* Goldgelb */
-    --banner-black: #333; /* Dunkles Grau/Schwarz */
+    /* Farben für das Absperrband: Rot und Weiß */
+    --banner-red: #E74C3C; /* Kräftiges Rot */
+    --banner-white: #FFFFFF; /* Reines Weiß */
 }
 
 body {
@@ -72,8 +72,9 @@ body::before {
 }
 
 .logo {
-    height: 200px; /* Größe des Logos */
-    margin-bottom: 40px; /* Abstand zwischen Logo und Text */
+    /* Kleinere Größe für ein "normales" Website-Logo */
+    height: 80px; /* Deutlich kleiner als zuvor, typische Logogröße */
+    margin-bottom: 30px; /* Abstand zwischen Logo und Text */
     object-fit: contain;
     transition: transform 0.3s ease-in-out; /* Übergang für Hover-Effekt */
 }
@@ -85,7 +86,7 @@ body::before {
 h1 {
     color: var(--text-color);
     margin: 0;
-    font-size: 5em; /* Größerer Titel */
+    font-size: 4em; /* Passend zur neuen Logogröße */
     letter-spacing: 3px; /* Etwas mehr Abstand zwischen den Buchstaben */
     text-transform: uppercase; /* Alles Großbuchstaben */
     text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.4); /* Leichter Schatten für den Text */
@@ -108,28 +109,28 @@ h1 {
 /* --- Website im Bau Banner Stile --- */
 .construction-banner {
     position: fixed; /* Fixiert am Viewport */
-    bottom: 20px; /* 20px vom unteren Rand */
+    bottom: 30px; /* Etwas höher vom unteren Rand */
     left: 50%; /* Start bei 50% von links */
-    transform: translateX(-50%) rotate(-5deg); /* Horizontal zentrieren und leicht rotieren */
+    transform: translateX(-50%) rotate(-7deg); /* Horizontal zentrieren und leicht rotieren für Band-Effekt */
     z-index: 100; /* Ganz oben, über allem anderen */
-    padding: 10px 25px;
-    color: var(--banner-black);
-    font-size: 1.2em;
+    padding: 12px 30px; /* Etwas mehr Padding */
+    color: var(--banner-black); /* Textfarbe schwarz, da Banner hell */
+    font-size: 1.3em; /* Deutlicherer Text */
     font-weight: 700; /* Kanit Bold */
     text-transform: uppercase;
     border-radius: 5px;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.4); /* Kräftigerer Schatten */
     white-space: nowrap; /* Verhindert Zeilenumbruch */
 
-    /* Absperrband-Effekt */
+    /* Absperrband-Effekt in Rot-Weiß */
     background: repeating-linear-gradient(
         -45deg, /* Diagonale Streifen */
-        var(--banner-yellow),
-        var(--banner-yellow) 15px, /* Breite des gelben Streifens */
-        var(--banner-black) 15px,
-        var(--banner-black) 30px /* Breite des schwarzen Streifens */
+        var(--banner-red),
+        var(--banner-red) 20px, /* Breite des roten Streifens */
+        var(--banner-white) 20px,
+        var(--banner-white) 40px /* Breite des weißen Streifens (insgesamt 40px pro Musterwiederholung) */
     );
-    border: 2px solid var(--banner-black); /* Rand für Definition */
+    border: 2px solid var(--banner-red); /* Roter Rand für Definition */
 
     animation: bannerPopIn 1s forwards ease-out 2s; /* Animation, startet noch später */
     opacity: 0; /* Start-Opacity für Animation */
@@ -138,11 +139,11 @@ h1 {
 @keyframes bannerPopIn {
     from {
         opacity: 0;
-        transform: translateX(-50%) rotate(-10deg) scale(0.8);
+        transform: translateX(-50%) rotate(-15deg) scale(0.7);
     }
     to {
         opacity: 1;
-        transform: translateX(-50%) rotate(-5deg) scale(1);
+        transform: translateX(-50%) rotate(-7deg) scale(1);
     }
 }
 
@@ -150,11 +151,11 @@ h1 {
 /* Responsive Anpassungen */
 @media (max-width: 768px) {
     .logo {
-        height: 150px;
-        margin-bottom: 30px;
+        height: 60px; /* Anpassung für Tablets */
+        margin-bottom: 25px;
     }
     h1 {
-        font-size: 3.5em;
+        font-size: 3em;
         letter-spacing: 2px;
     }
     .main-container {
@@ -162,18 +163,20 @@ h1 {
         border-radius: 15px;
     }
     .construction-banner {
-        font-size: 1em;
-        padding: 8px 20px;
+        font-size: 1.1em;
+        padding: 10px 25px;
+        bottom: 20px;
+        transform: translateX(-50%) rotate(-5deg); /* Weniger Rotation auf kleineren Geräten */
     }
 }
 
 @media (max-width: 480px) {
     .logo {
-        height: 100px;
+        height: 50px; /* Anpassung für Smartphones */
         margin-bottom: 20px;
     }
     h1 {
-        font-size: 2.5em;
+        font-size: 2.2em;
         letter-spacing: 1px;
     }
     .main-container {
@@ -181,8 +184,9 @@ h1 {
         border-radius: 10px;
     }
     .construction-banner {
-        font-size: 0.8em;
-        padding: 6px 15px;
-        bottom: 10px; /* Etwas höher auf kleinen Bildschirmen */
+        font-size: 0.9em;
+        padding: 8px 18px;
+        bottom: 10px;
+        transform: translateX(-50%) rotate(-3deg); /* Noch weniger Rotation */
     }
 }
