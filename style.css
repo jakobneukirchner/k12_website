@@ -15,6 +15,7 @@
 
 body {
     font-family: 'Kanit', sans-serif; /* Kanit Font */
+    line-height: 1.6;
     margin: 0;
     padding: 0;
     /* Hintergrund mit sanftem Farbverlauf */
@@ -57,23 +58,28 @@ body::before {
     -webkit-backdrop-filter: blur(5px); /* Für Safari */
     text-align: center;
 
-    /* ANIMATION GEÄNDERT: Sanftes Vergrößern und Hineingleiten */
+    /* ANIMATION FÜR MORPH-EFFEKT */
     opacity: 0; /* Start-Opacity für Animation */
-    transform: translateY(50px) scale(0.9); /* Startposition und Skalierung für Animation */
-    animation: fadeInScaleSlideUp 1.5s forwards ease-out; /* Neue Animation beim Laden */
+    transform-origin: center bottom; /* Wichtig: Transformation von der Unterseite her */
+    animation: morphIn 1.8s forwards ease-out; /* NEUE Animation: etwas länger für den Effekt */
 }
 
-/* NEUE KEYFRAMES FÜR DAS GESAMTE AUFPLOPPEN UND VERGRÖSSERN */
-@keyframes fadeInScaleSlideUp {
+/* NEUE KEYFRAMES FÜR DEN POWERPOINT-MORPH-EFFEKT */
+@keyframes morphIn {
     from {
         opacity: 0;
-        transform: translateY(100px) scale(0.7); /* Start etwas weiter unten und kleiner */
+        transform: translateY(150px) scaleY(0.1) scaleX(0.8) rotateX(45deg); /* Start: sehr flach, leicht gedreht, kleiner */
+    }
+    30% {
+        opacity: 1;
+        transform: translateY(-20px) scaleY(1.05) scaleX(1.02) rotateX(-5deg); /* Leichter Überschwung nach oben */
     }
     to {
         opacity: 1;
-        transform: translateY(0) scale(1); /* Endet an der Normalposition und -größe */
+        transform: translateY(0) scale(1) rotateX(0deg); /* Endet an der Normalposition und -größe */
     }
 }
+
 
 .logo {
     height: 80px;
@@ -93,23 +99,11 @@ h1 {
     letter-spacing: 3px;
     text-transform: uppercase;
     text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.4);
-    /* Die individuelle popIn Animation für H1 ist nicht mehr nötig,
-       da der gesamte Container animiert wird. Wenn du einen verzögerten Effekt
-       für den Titel haben möchtest, lass diese Animation aktiviert und erhöhe delay. */
-    /* opacity: 0;
-    transform: scale(0.9);
-    animation: popIn 1s forwards ease-out 1s; */
 }
 
-/* Der Stripe Button selbst hat oft Standard-Styles, aber du kannst ihn hier anpassen */
 stripe-buy-button {
     margin-top: 30px; /* Abstand über dem Button */
-    /* Weitere Anpassungen für den Button, falls gewünscht */
-    /* display: block; /* Stellt sicher, dass er die volle Breite einnimmt, wenn gewünscht */
-    /* max-width: 250px; /* Oder eine feste Breite */
-    /* ... andere CSS-Eigenschaften */
 }
-
 
 /* --- Website im Bau Banner Stile --- */
 .construction-banner {
@@ -143,7 +137,6 @@ stripe-buy-button {
 /* Der Text selbst im Banner */
 .construction-banner .banner-text-content {
     color: var(--banner-text-color); /* Textfarbe ist Schwarz! */
-    /* WICHTIG: Leichter Schatten, der auf jedem Hintergrund gut sichtbar ist */
     text-shadow: 1px 1px 3px rgba(255, 255, 255, 0.8), /* Weißer Schatten für roten Hintergrund */
                  -1px -1px 3px rgba(0, 0, 0, 0.3); /* Schwarzer Schatten für weißen Hintergrund */
 }
