@@ -83,10 +83,11 @@ body::before {
     margin-bottom: 30px;
     object-fit: contain;
     transition: transform 0.3s ease-in-out;
+    transform: rotate(0deg); /* Stellt sicher, dass das Logo im Ruhezustand gerade ist */
 }
 
 .logo:hover {
-    transform: scale(1.05) rotate(2deg);
+    transform: scale(1.05) rotate(2deg); /* Hier dreht es sich beim Hovern */
 }
 
 h1 {
@@ -107,18 +108,18 @@ h1 {
 }
 
 stripe-buy-button {
-    margin-top: 0;
+    margin-top: 0; /* Da der Abstand jetzt vom Text kommt */
 }
 
 
-/* --- NEUES LAUFENDES ABSPERRBAND IM CONTAINER --- */
+/* --- LAUFENDES ABSPERRBAND IM CONTAINER --- */
 .running-barricade-wrapper {
     position: absolute; /* Absolut positioniert innerhalb des main-containers */
     bottom: 0; /* Am unteren Rand des main-containers */
     left: 0;
     width: 100%; /* Volle Breite des main-containers */
     height: 100px; /* Höhe des sichtbaren Bereichs des Laufbands */
-    overflow: hidden; /* **Wichtig!** Schneidet den überstehenden Inhalt ab */
+    overflow: hidden; /* Wichtig! Schneidet den überstehenden Inhalt ab */
     border-bottom-left-radius: 20px; /* Abgerundete Ecken passend zum Container */
     border-bottom-right-radius: 20px; /* Abgerundete Ecken passend zum Container */
     border-top: 3px solid var(--banner-red); /* Roter Rand oben */
@@ -150,7 +151,7 @@ stripe-buy-button {
     justify-content: flex-start; /* Oder flex-start, um den Text am Anfang zu halten */
 
     /* Animation für die horizontale Bewegung */
-    animation: marquee 15s linear infinite; /* 15 Sekunden, linear, unendlich */
+    animation: marquee 15s linear infinite; /* 15 Sekunden Dauer, linear, unendlich */
 }
 
 /* Keyframes für die Lauftext-Animation */
