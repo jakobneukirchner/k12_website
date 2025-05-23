@@ -119,10 +119,11 @@ stripe-buy-button {
 /* --- Website im Bau Banner Stile --- */
 .construction-banner {
     position: fixed; /* Fixiert am Viewport */
-    bottom: 40px; /* Etwas höher vom unteren Rand */
+    top: 40px; /* **NEU: 40px vom oberen Rand** */
+    bottom: auto; /* Stellt sicher, dass es nicht am unteren Rand fixiert ist */
     left: 50%; /* Start bei 50% von links */
     transform: translateX(-50%) rotate(-7deg); /* Horizontal zentrieren und leicht rotieren */
-    z-index: 100; /* Ganz oben, über allem anderem */
+    z-index: 100; /* Ganz oben, über allem anderen */
     padding: 15px 40px; /* Deutlich mehr Padding, um das Banner größer zu machen */
     font-size: 1.5em; /* Größere Schrift für bessere Lesbarkeit */
     font-weight: 700; /* Kanit Bold */
@@ -141,27 +142,29 @@ stripe-buy-button {
     );
     border: 3px solid var(--banner-red); /* Dickerer roter Rand */
 
-    animation: bannerPopIn 1s forwards ease-out 2s; /* Animation, startet noch später */
+    /* Animation an neue Position anpassen */
+    animation: bannerPopInTop 1s forwards ease-out 2s; /* NEUE Animation für oben */
     opacity: 0; /* Start-Opacity für Animation */
 }
+
+/* NEUE KEYFRAMES FÜR BANNER VON OBEN */
+@keyframes bannerPopInTop {
+    from {
+        opacity: 0;
+        transform: translateX(-50%) translateY(-100%) rotate(-15deg) scale(0.7); /* Start oberhalb des Bildschirms */
+    }
+    to {
+        opacity: 1;
+        transform: translateX(-50%) translateY(0) rotate(-7deg) scale(1); /* Gleitet an die Position */
+    }
+}
+
 
 /* Der Text selbst im Banner */
 .construction-banner .banner-text-content {
     color: var(--banner-text-color); /* Textfarbe ist Schwarz! */
     text-shadow: 1px 1px 3px rgba(255, 255, 255, 0.8), /* Weißer Schatten für roten Hintergrund */
                  -1px -1px 3px rgba(0, 0, 0, 0.3); /* Schwarzer Schatten für weißen Hintergrund */
-}
-
-
-@keyframes bannerPopIn {
-    from {
-        opacity: 0;
-        transform: translateX(-50%) rotate(-15deg) scale(0.7);
-    }
-    to {
-        opacity: 1;
-        transform: translateX(-50%) rotate(-7deg) scale(1);
-    }
 }
 
 
@@ -187,7 +190,7 @@ stripe-buy-button {
     .construction-banner {
         font-size: 1.2em;
         padding: 12px 30px;
-        bottom: 25px;
+        top: 25px; /* Anpassung für Tablets */
         transform: translateX(-50%) rotate(-5deg);
     }
 }
@@ -213,7 +216,7 @@ stripe-buy-button {
     .construction-banner {
         font-size: 1em;
         padding: 10px 25px;
-        bottom: 15px;
+        top: 15px; /* Anpassung für Smartphones */
         transform: translateX(-50%) rotate(-3deg);
     }
 }
