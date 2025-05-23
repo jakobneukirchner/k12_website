@@ -11,13 +11,17 @@
     --banner-red: #E74C3C; /* Kräftiges Rot */
     --banner-white: #FFFFFF; /* Reines Weiß */
     --banner-text-color: #000; /* Textfarbe: Schwarz! */
+
+    --banner-height: 80px; /* Geschätzte Höhe des Banners, inklusive Padding und Rand */
 }
 
 body {
     font-family: 'Kanit', sans-serif; /* Kanit Font */
     line-height: 1.6;
     margin: 0;
-    padding: 0;
+    /* Füge Padding oben hinzu, um Platz für den Banner zu schaffen */
+    padding-top: var(--banner-height); /* Platz für den Banner */
+    padding-bottom: 0; /* Setze padding-bottom explizit auf 0, um Konflikte zu vermeiden */
     /* Hintergrund mit sanftem Farbverlauf */
     background: linear-gradient(135deg, var(--background-gradient-start) 0%, var(--background-gradient-end) 100%);
     display: flex; /* Für Zentrierung des Containers */
@@ -62,6 +66,10 @@ body::before {
     opacity: 0; /* Start-Opacity für Animation */
     transform-origin: center bottom; /* Wichtig: Transformation von der Unterseite her */
     animation: morphIn 1.8s forwards ease-out; /* NEUE Animation: etwas länger für den Effekt */
+
+    /* Anpassung der vertikalen Zentrierung, um Platz für den Banner zu machen */
+    margin-top: calc(var(--banner-height) / 2); /* Schiebt den Container etwas nach unten */
+    margin-bottom: calc(var(--banner-height) / 2); /* Behält Zentrierung bei */
 }
 
 /* NEUE KEYFRAMES FÜR DEN POWERPOINT-MORPH-EFFEKT */
@@ -112,14 +120,13 @@ h1 {
 
 stripe-buy-button {
     margin-top: 0; /* Da der Abstand jetzt vom Text kommt */
-    /* Weitere Anpassungen für den Button, falls gewünscht */
 }
 
 
 /* --- Website im Bau Banner Stile --- */
 .construction-banner {
     position: fixed; /* Fixiert am Viewport */
-    top: 40px; /* **NEU: 40px vom oberen Rand** */
+    top: 0; /* **NEU: Direkt am oberen Rand** */
     bottom: auto; /* Stellt sicher, dass es nicht am unteren Rand fixiert ist */
     left: 50%; /* Start bei 50% von links */
     transform: translateX(-50%) rotate(-7deg); /* Horizontal zentrieren und leicht rotieren */
@@ -147,15 +154,15 @@ stripe-buy-button {
     opacity: 0; /* Start-Opacity für Animation */
 }
 
-/* NEUE KEYFRAMES FÜR BANNER VON OBEN */
+/* NEUE KEYFRAMES FÜR BANNER VON OBEN (Start von weiter oben) */
 @keyframes bannerPopInTop {
     from {
         opacity: 0;
-        transform: translateX(-50%) translateY(-100%) rotate(-15deg) scale(0.7); /* Start oberhalb des Bildschirms */
+        transform: translateX(-50%) translateY(-150%) rotate(-15deg) scale(0.7); /* Start WEITER oberhalb des Bildschirms */
     }
     to {
         opacity: 1;
-        transform: translateX(-50%) translateY(0) rotate(-7deg) scale(1); /* Gleitet an die Position */
+        transform: translateX(-50%) translateY(0) rotate(-7deg) scale(1); /* Gleitet an die Position (oben) */
     }
 }
 
@@ -170,6 +177,15 @@ stripe-buy-button {
 
 /* Responsive Anpassungen */
 @media (max-width: 768px) {
+    body {
+        padding-top: calc(var(--banner-height) * 0.8); /* Weniger Padding auf Tablets */
+    }
+    .main-container {
+        margin-top: calc(var(--banner-height) * 0.4);
+        margin-bottom: calc(var(--banner-height) * 0.4);
+        padding: 30px 15px;
+        border-radius: 15px;
+    }
     .logo {
         height: 60px;
         margin-bottom: 25px;
@@ -177,10 +193,6 @@ stripe-buy-button {
     h1 {
         font-size: 3em;
         letter-spacing: 2px;
-    }
-    .main-container {
-        padding: 30px 15px;
-        border-radius: 15px;
     }
     .support-text {
         font-size: 1.1em;
@@ -190,12 +202,21 @@ stripe-buy-button {
     .construction-banner {
         font-size: 1.2em;
         padding: 12px 30px;
-        top: 25px; /* Anpassung für Tablets */
+        top: 0; /* Auch auf Tablets oben */
         transform: translateX(-50%) rotate(-5deg);
     }
 }
 
 @media (max-width: 480px) {
+    body {
+        padding-top: calc(var(--banner-height) * 0.6); /* Noch weniger Padding auf Smartphones */
+    }
+    .main-container {
+        margin-top: calc(var(--banner-height) * 0.3);
+        margin-bottom: calc(var(--banner-height) * 0.3);
+        padding: 20px 10px;
+        border-radius: 10px;
+    }
     .logo {
         height: 50px;
         margin-bottom: 20px;
@@ -203,10 +224,6 @@ stripe-buy-button {
     h1 {
         font-size: 2.2em;
         letter-spacing: 1px;
-    }
-    .main-container {
-        padding: 20px 10px;
-        border-radius: 10px;
     }
     .support-text {
         font-size: 1em;
@@ -216,7 +233,7 @@ stripe-buy-button {
     .construction-banner {
         font-size: 1em;
         padding: 10px 25px;
-        top: 15px; /* Anpassung für Smartphones */
+        top: 0; /* Auch hier oben */
         transform: translateX(-50%) rotate(-3deg);
     }
 }
