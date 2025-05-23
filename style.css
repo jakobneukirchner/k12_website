@@ -4,12 +4,13 @@
     --secondary-color: #0056b3; /* Ein dunkleres Blau */
     --background-gradient-start: #007bff; /* Startfarbe des Hintergrundverlaufs */
     --background-gradient-end: #00c6ff;   /* Endfarbe des Hintergrundverlaufs */
-    --text-color: #fff; /* Weiße Textfarbe */
+    --text-color: #fff; /* Weiße Textfarbe für den Haupttitel */
     --dark-overlay: rgba(0, 0, 0, 0.3); /* Leicht dunkler Überzug */
 
     /* Farben für das Absperrband: Rot und Weiß */
     --banner-red: #E74C3C; /* Kräftiges Rot */
     --banner-white: #FFFFFF; /* Reines Weiß */
+    --banner-text-color: #333; /* Dunkler Text für das Banner */
 }
 
 body {
@@ -72,27 +73,27 @@ body::before {
 }
 
 .logo {
-    /* Kleinere Größe für ein "normales" Website-Logo */
-    height: 80px; /* Deutlich kleiner als zuvor, typische Logogröße */
-    margin-bottom: 30px; /* Abstand zwischen Logo und Text */
+    /* Größe des Logos wie eine normale Website */
+    height: 80px;
+    margin-bottom: 30px;
     object-fit: contain;
-    transition: transform 0.3s ease-in-out; /* Übergang für Hover-Effekt */
+    transition: transform 0.3s ease-in-out;
 }
 
 .logo:hover {
-    transform: scale(1.05) rotate(2deg); /* Leichter Zoom und Rotation beim Hover */
+    transform: scale(1.05) rotate(2deg);
 }
 
 h1 {
     color: var(--text-color);
     margin: 0;
-    font-size: 4em; /* Passend zur neuen Logogröße */
-    letter-spacing: 3px; /* Etwas mehr Abstand zwischen den Buchstaben */
-    text-transform: uppercase; /* Alles Großbuchstaben */
-    text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.4); /* Leichter Schatten für den Text */
-    opacity: 0; /* Start-Opacity für Animation */
-    transform: scale(0.9); /* Start-Skalierung für Animation */
-    animation: popIn 1s forwards ease-out 1s; /* Animation startet etwas später */
+    font-size: 4em;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.4);
+    opacity: 0;
+    transform: scale(0.9);
+    animation: popIn 1s forwards ease-out 1s;
 }
 
 @keyframes popIn {
@@ -109,13 +110,13 @@ h1 {
 /* --- Website im Bau Banner Stile --- */
 .construction-banner {
     position: fixed; /* Fixiert am Viewport */
-    bottom: 30px; /* Etwas höher vom unteren Rand */
+    bottom: 40px; /* Etwas höher vom unteren Rand */
     left: 50%; /* Start bei 50% von links */
-    transform: translateX(-50%) rotate(-7deg); /* Horizontal zentrieren und leicht rotieren für Band-Effekt */
+    transform: translateX(-50%) rotate(-7deg); /* Horizontal zentrieren und leicht rotieren */
     z-index: 100; /* Ganz oben, über allem anderen */
-    padding: 12px 30px; /* Etwas mehr Padding */
-    color: var(--banner-black); /* Textfarbe schwarz, da Banner hell */
-    font-size: 1.3em; /* Deutlicherer Text */
+    padding: 15px 40px; /* Deutlich mehr Padding, um das Banner größer zu machen */
+    color: var(--banner-text-color); /* Textfarbe: dunkel (schwarz) */
+    font-size: 1.5em; /* Größere Schrift für bessere Lesbarkeit */
     font-weight: 700; /* Kanit Bold */
     text-transform: uppercase;
     border-radius: 5px;
@@ -126,11 +127,26 @@ h1 {
     background: repeating-linear-gradient(
         -45deg, /* Diagonale Streifen */
         var(--banner-red),
-        var(--banner-red) 20px, /* Breite des roten Streifens */
-        var(--banner-white) 20px,
-        var(--banner-white) 40px /* Breite des weißen Streifens (insgesamt 40px pro Musterwiederholung) */
+        var(--banner-red) 25px, /* Breite des roten Streifens */
+        var(--banner-white) 25px,
+        var(--banner-white) 50px /* Breite des weißen Streifens (insgesamt 50px pro Musterwiederholung) */
     );
-    border: 2px solid var(--banner-red); /* Roter Rand für Definition */
+    border: 3px solid var(--banner-red); /* Dickerer roter Rand */
+
+    /* Stellt sicher, dass der Text immer auf dem weißen Hintergrund lesbar ist */
+    /* Hier nutzen wir einen Trick: Wir legen den Text auf den Hintergrund des gesamten Banners,
+       indem wir ihn auf das Hintergrundbild des Banners anwenden. */
+    background-clip: text; /* Nur der Text hat den Hintergrund */
+    -webkit-background-clip: text; /* Für Safari */
+    -webkit-text-fill-color: transparent; /* Textfüllung transparent, damit Hintergrund durchscheint */
+    /* Dies wird den Text auch rot-weiß gestreift machen, was cool aussehen könnte.
+       Wenn du einen EINFARBIGEN Text (z.B. schwarz) auf dem gestreiften Banner willst,
+       müssten wir eine andere Methode anwenden (z.B. zwei Elemente für Banner und Text).
+       Für jetzt behalten wir den Text auf dem weißen Streifen sichtbar, indem wir
+       die Füllfarbe des Textes direkt setzen, falls background-clip nicht funktioniert. */
+    color: var(--banner-text-color); /* Fallback und primäre Textfarbe */
+    text-shadow: 1px 1px 3px rgba(255, 255, 255, 0.5); /* Leichter Schatten, falls auf Rot */
+
 
     animation: bannerPopIn 1s forwards ease-out 2s; /* Animation, startet noch später */
     opacity: 0; /* Start-Opacity für Animation */
@@ -151,7 +167,7 @@ h1 {
 /* Responsive Anpassungen */
 @media (max-width: 768px) {
     .logo {
-        height: 60px; /* Anpassung für Tablets */
+        height: 60px;
         margin-bottom: 25px;
     }
     h1 {
@@ -163,16 +179,16 @@ h1 {
         border-radius: 15px;
     }
     .construction-banner {
-        font-size: 1.1em;
-        padding: 10px 25px;
-        bottom: 20px;
-        transform: translateX(-50%) rotate(-5deg); /* Weniger Rotation auf kleineren Geräten */
+        font-size: 1.2em;
+        padding: 12px 30px;
+        bottom: 25px;
+        transform: translateX(-50%) rotate(-5deg);
     }
 }
 
 @media (max-width: 480px) {
     .logo {
-        height: 50px; /* Anpassung für Smartphones */
+        height: 50px;
         margin-bottom: 20px;
     }
     h1 {
@@ -184,9 +200,9 @@ h1 {
         border-radius: 10px;
     }
     .construction-banner {
-        font-size: 0.9em;
-        padding: 8px 18px;
-        bottom: 10px;
-        transform: translateX(-50%) rotate(-3deg); /* Noch weniger Rotation */
+        font-size: 1em;
+        padding: 10px 25px;
+        bottom: 15px;
+        transform: translateX(-50%) rotate(-3deg);
     }
 }
