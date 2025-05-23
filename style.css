@@ -101,9 +101,20 @@ h1 {
     text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.4);
 }
 
-stripe-buy-button {
-    margin-top: 30px; /* Abstand über dem Button */
+/* Stil für den neuen Unterstützungstext */
+.support-text {
+    color: var(--text-color); /* Weißer Text, passend zum Titel */
+    font-size: 1.2em;
+    margin-top: 30px; /* Abstand über dem Text zum H1 */
+    margin-bottom: 15px; /* Abstand unter dem Text zum Button */
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5); /* Leichter Schatten für bessere Lesbarkeit */
 }
+
+stripe-buy-button {
+    margin-top: 0; /* Da der Abstand jetzt vom Text kommt */
+    /* Weitere Anpassungen für den Button, falls gewünscht */
+}
+
 
 /* --- Website im Bau Banner Stile --- */
 .construction-banner {
@@ -111,7 +122,7 @@ stripe-buy-button {
     bottom: 40px; /* Etwas höher vom unteren Rand */
     left: 50%; /* Start bei 50% von links */
     transform: translateX(-50%) rotate(-7deg); /* Horizontal zentrieren und leicht rotieren */
-    z-index: 100; /* Ganz oben, über allem anderen */
+    z-index: 100; /* Ganz oben, über allem anderem */
     padding: 15px 40px; /* Deutlich mehr Padding, um das Banner größer zu machen */
     font-size: 1.5em; /* Größere Schrift für bessere Lesbarkeit */
     font-weight: 700; /* Kanit Bold */
@@ -168,6 +179,11 @@ stripe-buy-button {
         padding: 30px 15px;
         border-radius: 15px;
     }
+    .support-text {
+        font-size: 1.1em;
+        margin-top: 25px;
+        margin-bottom: 10px;
+    }
     .construction-banner {
         font-size: 1.2em;
         padding: 12px 30px;
@@ -188,6 +204,11 @@ stripe-buy-button {
     .main-container {
         padding: 20px 10px;
         border-radius: 10px;
+    }
+    .support-text {
+        font-size: 1em;
+        margin-top: 20px;
+        margin-bottom: 8px;
     }
     .construction-banner {
         font-size: 1em;
