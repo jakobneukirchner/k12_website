@@ -11,17 +11,13 @@
     --banner-red: #E74C3C; /* Kräftiges Rot */
     --banner-white: #FFFFFF; /* Reines Weiß */
     --banner-text-color: #000; /* Textfarbe: Schwarz! */
-
-    --banner-height: 80px; /* Geschätzte Höhe des Banners, inklusive Padding und Rand */
 }
 
 body {
     font-family: 'Kanit', sans-serif; /* Kanit Font */
     line-height: 1.6;
     margin: 0;
-    /* Füge Padding oben hinzu, um Platz für den Banner zu schaffen */
-    padding-top: var(--banner-height); /* Platz für den Banner */
-    padding-bottom: 0; /* Setze padding-bottom explizit auf 0, um Konflikte zu vermeiden */
+    padding: 0; /* padding-top am body wird hier nicht mehr benötigt */
     /* Hintergrund mit sanftem Farbverlauf */
     background: linear-gradient(135deg, var(--background-gradient-start) 0%, var(--background-gradient-end) 100%);
     display: flex; /* Für Zentrierung des Containers */
@@ -30,7 +26,7 @@ body {
     min-height: 100vh; /* Sorgt dafür, dass der Body die volle Höhe des Viewports einnimmt */
     overflow: hidden; /* Verhindert Scrollbalken */
     color: var(--text-color); /* Standard-Textfarbe */
-    position: relative; /* Für den Overlay-Effekt und das Banner */
+    position: relative; /* Für den Overlay-Effekt */
 }
 
 /* Optionaler Overlay für mehr Tiefe */
@@ -46,7 +42,7 @@ body::before {
 }
 
 .main-container {
-    position: relative; /* Wichtig für z-index */
+    position: relative; /* Wichtig! Für die absolute Positionierung des Absperrbands */
     z-index: 2; /* Stellt sicher, dass der Inhalt über dem Overlay ist */
     display: flex;
     flex-direction: column; /* Elemente untereinander anordnen */
@@ -55,6 +51,7 @@ body::before {
     width: 90%; /* Etwas mehr Breite auf großen Bildschirmen */
     max-width: 800px; /* Maximale Breite */
     padding: 40px 20px;
+    padding-bottom: 120px; /* Zusätzlicher Platz für das Absperrband am unteren Rand */
     background-color: rgba(255, 255, 255, 0.1); /* Leicht transparenter weißer Hintergrund */
     border-radius: 20px; /* Abgerundete Ecken */
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3); /* Sanfter Schatten für Tiefe */
@@ -65,29 +62,29 @@ body::before {
     /* ANIMATION FÜR MORPH-EFFEKT */
     opacity: 0; /* Start-Opacity für Animation */
     transform-origin: center bottom; /* Wichtig: Transformation von der Unterseite her */
-    animation: morphIn 1.8s forwards ease-out; /* NEUE Animation: etwas länger für den Effekt */
+    animation: morphIn 1.8s forwards ease-out; /* Animation: etwas länger für den Effekt */
 
-    /* Anpassung der vertikalen Zentrierung, um Platz für den Banner zu machen */
-    margin-top: calc(var(--banner-height) / 2); /* Schiebt den Container etwas nach unten */
-    margin-bottom: calc(var(--banner-height) / 2); /* Behält Zentrierung bei */
+    /* margin-top und margin-bottom werden hier nicht mehr benötigt,
+       da der Banner nicht mehr am body hängt */
+    margin-top: 0;
+    margin-bottom: 0;
 }
 
-/* NEUE KEYFRAMES FÜR DEN POWERPOINT-MORPH-EFFEKT */
+/* KEYFRAMES FÜR DEN POWERPOINT-MORPH-EFFEKT BLEIBEN GLEICH */
 @keyframes morphIn {
     from {
         opacity: 0;
-        transform: translateY(150px) scaleY(0.1) scaleX(0.8) rotateX(45deg); /* Start: sehr flach, leicht gedreht, kleiner */
+        transform: translateY(150px) scaleY(0.1) scaleX(0.8) rotateX(45deg);
     }
     30% {
         opacity: 1;
-        transform: translateY(-20px) scaleY(1.05) scaleX(1.02) rotateX(-5deg); /* Leichter Überschwung nach oben */
+        transform: translateY(-20px) scaleY(1.05) scaleX(1.02) rotateX(-5deg);
     }
     to {
         opacity: 1;
-        transform: translateY(0) scale(1) rotateX(0deg); /* Endet an der Normalposition und -größe */
+        transform: translateY(0) scale(1) rotateX(0deg);
     }
 }
-
 
 .logo {
     height: 80px;
@@ -123,53 +120,59 @@ stripe-buy-button {
 }
 
 
-/* --- Website im Bau Banner Stile --- */
-.construction-banner {
-    position: fixed; /* Fixiert am Viewport */
-    top: 0; /* **NEU: Direkt am oberen Rand** */
-    bottom: auto; /* Stellt sicher, dass es nicht am unteren Rand fixiert ist */
-    left: 50%; /* Start bei 50% von links */
-    transform: translateX(-50%) rotate(-7deg); /* Horizontal zentrieren und leicht rotieren */
-    z-index: 100; /* Ganz oben, über allem anderen */
-    padding: 15px 40px; /* Deutlich mehr Padding, um das Banner größer zu machen */
-    font-size: 1.5em; /* Größere Schrift für bessere Lesbarkeit */
-    font-weight: 700; /* Kanit Bold */
-    text-transform: uppercase;
-    border-radius: 5px;
-    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.4); /* Kräftigerer Schatten */
-    white-space: nowrap; /* Verhindert Zeilenumbruch */
+/* --- NEUES ABSPERRBAND IM CONTAINER --- */
+.barricade-stripes {
+    position: absolute; /* Absolut positioniert innerhalb des main-containers */
+    bottom: 0; /* Am unteren Rand des main-containers */
+    left: 0;
+    width: 100%; /* Volle Breite des main-containers */
+    height: 100px; /* Höhe des Absperrbands */
+    overflow: hidden; /* Wichtig, damit die Animation nicht über das Band hinausgeht */
+    border-bottom-left-radius: 20px; /* Abgerundete Ecken passend zum Container */
+    border-bottom-right-radius: 20px; /* Abgerundete Ecken passend zum Container */
 
     /* Absperrband-Effekt in Rot-Weiß */
     background: repeating-linear-gradient(
         -45deg, /* Diagonale Streifen */
         var(--banner-red),
-        var(--banner-red) 25px, /* Breite des roten Streifens */
-        var(--banner-white) 25px,
-        var(--banner-white) 50px /* Breite des weißen Streifens (insgesamt 50px pro Musterwiederholung) */
+        var(--banner-red) 30px, /* Breite des roten Streifens */
+        var(--banner-white) 30px,
+        var(--banner-white) 60px /* Breite des weißen Streifens (insgesamt 60px pro Musterwiederholung) */
     );
-    border: 3px solid var(--banner-red); /* Dickerer roter Rand */
+    border-top: 3px solid var(--banner-red); /* Roter Rand oben */
+    box-shadow: inset 0 5px 10px rgba(0, 0, 0, 0.2); /* Innenliegender Schatten */
 
-    /* Animation an neue Position anpassen */
-    animation: bannerPopInTop 1s forwards ease-out 2s; /* NEUE Animation für oben */
-    opacity: 0; /* Start-Opacity für Animation */
+    /* Animation für die Bewegung des Absperrbands */
+    animation: moveStripes 3s linear infinite; /* 3 Sekunden Dauer, linear, unendlich */
 }
 
-/* NEUE KEYFRAMES FÜR BANNER VON OBEN (Start von weiter oben) */
-@keyframes bannerPopInTop {
+/* Keyframes für die Bewegung des Absperrbands */
+@keyframes moveStripes {
     from {
-        opacity: 0;
-        transform: translateX(-50%) translateY(-150%) rotate(-15deg) scale(0.7); /* Start WEITER oberhalb des Bildschirms */
+        background-position: 0 0; /* Startposition des Hintergrunds */
     }
     to {
-        opacity: 1;
-        transform: translateX(-50%) translateY(0) rotate(-7deg) scale(1); /* Gleitet an die Position (oben) */
+        background-position: 60px 0; /* Bewegung um eine Musterbreite nach rechts */
     }
 }
 
+/* Text innerhalb des Absperrbands */
+.barricade-stripes p {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    pointer-events: none; /* Macht den Text klickbar, wenn etwas darunter ist (z.B. der Container) */
+}
 
-/* Der Text selbst im Banner */
-.construction-banner .banner-text-content {
+.barricade-stripes .barricade-text {
     color: var(--banner-text-color); /* Textfarbe ist Schwarz! */
+    font-size: 1.6em; /* Große Schrift für gute Lesbarkeit */
+    font-weight: 700;
+    text-transform: uppercase;
+    white-space: nowrap;
     text-shadow: 1px 1px 3px rgba(255, 255, 255, 0.8), /* Weißer Schatten für roten Hintergrund */
                  -1px -1px 3px rgba(0, 0, 0, 0.3); /* Schwarzer Schatten für weißen Hintergrund */
 }
@@ -178,13 +181,14 @@ stripe-buy-button {
 /* Responsive Anpassungen */
 @media (max-width: 768px) {
     body {
-        padding-top: calc(var(--banner-height) * 0.8); /* Weniger Padding auf Tablets */
+        padding-top: 0; /* Kein Padding mehr am body */
     }
     .main-container {
-        margin-top: calc(var(--banner-height) * 0.4);
-        margin-bottom: calc(var(--banner-height) * 0.4);
         padding: 30px 15px;
+        padding-bottom: 100px; /* Platz für Band auf Tablets */
         border-radius: 15px;
+        margin-top: 0; /* Zurücksetzen */
+        margin-bottom: 0; /* Zurücksetzen */
     }
     .logo {
         height: 60px;
@@ -199,23 +203,24 @@ stripe-buy-button {
         margin-top: 25px;
         margin-bottom: 10px;
     }
-    .construction-banner {
-        font-size: 1.2em;
-        padding: 12px 30px;
-        top: 0; /* Auch auf Tablets oben */
-        transform: translateX(-50%) rotate(-5deg);
+    .barricade-stripes {
+        height: 80px; /* Höhe des Bands auf Tablets */
+    }
+    .barricade-stripes .barricade-text {
+        font-size: 1.4em;
     }
 }
 
 @media (max-width: 480px) {
     body {
-        padding-top: calc(var(--banner-height) * 0.6); /* Noch weniger Padding auf Smartphones */
+        padding-top: 0; /* Kein Padding mehr am body */
     }
     .main-container {
-        margin-top: calc(var(--banner-height) * 0.3);
-        margin-bottom: calc(var(--banner-height) * 0.3);
         padding: 20px 10px;
+        padding-bottom: 80px; /* Platz für Band auf Smartphones */
         border-radius: 10px;
+        margin-top: 0; /* Zurücksetzen */
+        margin-bottom: 0; /* Zurücksetzen */
     }
     .logo {
         height: 50px;
@@ -230,10 +235,10 @@ stripe-buy-button {
         margin-top: 20px;
         margin-bottom: 8px;
     }
-    .construction-banner {
-        font-size: 1em;
-        padding: 10px 25px;
-        top: 0; /* Auch hier oben */
-        transform: translateX(-50%) rotate(-3deg);
+    .barricade-stripes {
+        height: 60px; /* Höhe des Bands auf Smartphones */
+    }
+    .barricade-stripes .barricade-text {
+        font-size: 1.2em;
     }
 }
